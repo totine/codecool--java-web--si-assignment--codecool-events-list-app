@@ -17,6 +17,8 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
+
+
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
 
