@@ -11,6 +11,7 @@ import  static spark.Spark.*;
 
 
 public class Main {
+    private static EventController eventController = new EventController();
 
     public static void main(String[] args) {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -23,11 +24,14 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         // Always add generic routes to the end
-        get("/", EventController::renderProducts, new ThymeleafTemplateEngine());
+        // get("/", EventController::renderProducts, new ThymeleafTemplateEngine());
+
+        get("/", (req, res) -> eventController.getAllEvents().toString());
+
         // Equivalent with above
-        get("/index", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( EventController.renderProducts(req, res) );
-        });
+        // get("/index", (Request req, Response res) -> {
+         //   return new ThymeleafTemplateEngine().render( EventController.renderProducts(req, res) );
+       // });
     }
 
 
