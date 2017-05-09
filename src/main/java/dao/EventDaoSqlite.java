@@ -3,6 +3,8 @@ package dao;
 import model.Event;
 import model.EventCategory;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,15 +28,23 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
     @Override
     public List<Event> getAll() {
         List<Event> events = new ArrayList<>();
-        events.add(new Event("event1"));
-        events.add(new Event("event2"));
-        events.add(new Event("event3"));
-        events.add(new Event("event4"));
+
+        try {
+            PreparedStatement statement = this.getConnection().prepareStatement("SELECT * FROM events");
+            events = this.getEvents(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return events;
     }
 
+
     @Override
     public List<Event> getBy(EventCategory eventCategoryCategory) {
+        return null;
+    }
+    private List<Event> getEvents(PreparedStatement statement){
         return null;
     }
 }
