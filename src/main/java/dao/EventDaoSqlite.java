@@ -3,6 +3,7 @@ package dao;
 import model.Event;
 import model.EventCategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,7 +25,12 @@ public class EventDaoSqlite implements EventDao {
 
     @Override
     public List<Event> getAll() {
-        return null;
+        List<Event> events = new ArrayList<>();
+        events.add(new Event("event1"));
+        events.add(new Event("event2"));
+        events.add(new Event("event3"));
+        events.add(new Event("event4"));
+        return events;
     }
 
     @Override
