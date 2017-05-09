@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class EventDaoSqlite implements EventDao {
+public class EventDaoSqlite extends BaseDao implements EventDao {
     @Override
     public void add(Event event) {
 
