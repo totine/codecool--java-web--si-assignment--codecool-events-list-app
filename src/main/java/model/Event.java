@@ -44,12 +44,20 @@ public class Event {
         this.date = date;
     }
 
+    public void setDate(String date) {
+        this.date = LocalDate.parse(date);
+    }
+
     public LocalTime getTime() {
         return time;
     }
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public void setTime(String time) {
+        this.time = LocalTime.parse(time);
     }
 
     public String getDescription() {
