@@ -19,7 +19,7 @@ public class EventController {
         return eventDao.getAll();
     }
 
-    public static ModelAndView renderProducts(Request req, Response res) {
+    public static ModelAndView renderEvents(Request req, Response res) {
         EventDao eventDao = new EventDaoSqlite();
         List<Event> events = eventDao.getAll();
 
@@ -35,5 +35,10 @@ public class EventController {
         Map params = new HashMap<>();
         params.put("event", event);
         return new ModelAndView(params, "event/show");
+    }
+
+    public static ModelAndView renderEventAdd(Request req, Response res) {
+        Map params = new HashMap<>();
+        return new ModelAndView(params, "event/add");
     }
 }
