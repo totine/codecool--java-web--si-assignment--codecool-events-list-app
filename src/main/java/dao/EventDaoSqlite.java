@@ -18,7 +18,8 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
 
     @Override
     public Event find(int id) {
-        return null;
+        Event event = new Event("new event");
+        return event;
     }
 
     @Override

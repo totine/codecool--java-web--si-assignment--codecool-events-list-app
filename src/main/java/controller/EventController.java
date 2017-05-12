@@ -25,6 +25,15 @@ public class EventController {
 
         Map params = new HashMap<>();
         params.put("eventContainer", events);
-        return new ModelAndView(params, "product/index");
+        return new ModelAndView(params, "event/index");
+    }
+
+    public static ModelAndView renderEventDetails(Request req, Response res, Integer eventId) {
+        EventDao eventDao = new EventDaoSqlite();
+        Event event = eventDao.find(eventId);
+
+        Map params = new HashMap<>();
+        params.put("event", event);
+        return new ModelAndView(params, "event/show");
     }
 }

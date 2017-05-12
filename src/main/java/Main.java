@@ -27,7 +27,9 @@ public class Main {
 
         // Always add generic routes to the end
          get("/", EventController::renderProducts, new ThymeleafTemplateEngine());
-        System.out.println(eventController.getAllEvents().get(0).getDate());
+
+        get("/event/:id/", (req, res) -> EventController.renderEventDetails(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
+
 //        get("/", (req, res) -> eventController.getAllEvents().toString());
 
         // Equivalent with above
