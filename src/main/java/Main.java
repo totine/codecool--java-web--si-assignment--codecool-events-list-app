@@ -14,6 +14,8 @@ public class Main {
     private static EventController eventController = new EventController();
 
     public static void main(String[] args) {
+
+        // Configure Spark
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
@@ -24,9 +26,9 @@ public class Main {
         get("/hello", (req, res) -> "Hello World");
 
         // Always add generic routes to the end
-        // get("/", EventController::renderProducts, new ThymeleafTemplateEngine());
-
-        get("/", (req, res) -> eventController.getAllEvents().toString());
+         get("/", EventController::renderProducts, new ThymeleafTemplateEngine());
+        System.out.println(eventController.getAllEvents().get(0).getDate());
+//        get("/", (req, res) -> eventController.getAllEvents().toString());
 
         // Equivalent with above
         // get("/index", (Request req, Response res) -> {

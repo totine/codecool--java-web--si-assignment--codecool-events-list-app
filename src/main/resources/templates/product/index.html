@@ -13,8 +13,9 @@
 
     <div id="products" class="row list-group">
 
-        <div class="item col-xs-4 col-lg-4" th:each="event,iterStat : ${eventContainer}">
-           <div th:text="${event}"></div>
+        <div class="item col-xs-4 col-lg-4" th:each="event : ${eventContainer}">
+           <div th:text="${event.name}"></div>
+            <div th:text="${event.date}"></div>
         </div>
     </div>
 
