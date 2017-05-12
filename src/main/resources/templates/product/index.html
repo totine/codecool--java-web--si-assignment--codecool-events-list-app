@@ -5,24 +5,22 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <title>Codecool events</title>
 </head>
 <body>
 
 <div class="container">
+    <div id="events" class="row">
+    <ul class="collection" >
+        <li class="collection-item" th:each="event : ${eventContainer}" th:text="${event.name}">Event name</li>
+    </ul>
 
-    <div id="products" class="row list-group">
-
-        <div class="item col-xs-4 col-lg-4" th:each="event : ${eventContainer}">
-           <div th:text="${event.name}"></div>
-            <div th:text="${event.date}"></div>
-        </div>
-    </div>
 
 </div>
 
 <div th:replace="footer :: copy"></div>
-
+</div>
 
 </body>
 </html>
