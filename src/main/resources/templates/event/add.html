@@ -10,11 +10,35 @@
     <title>Codecool events</title>
 </head>
 <body>
-<header>
-    <div>Codecool events!</div>
-</header>
-<form>
-    <input type="text">
+<div class="container grey lighten-2">
+
+    <div class="row">
+        <div class="col s7 offset-s2">
+            <div class="card">
+
+                <div class="card-content">
+                    <h2 class="card-title indigo-text">Add new event</h2>
+<fieldset>
+<form method="POST" >
+    <div class="form-group">
+        <label for="event_name">Item name</label>
+        <input id="event_name" autofocus type="text" name="event_name" required/>
+        <label for="event_date">Date</label>
+        <input type="date" id="event_date" name="event_date" class="datepicker" />
+        <label for="event_date">Time</label>
+        <input type="time" id="event_time" name="event_time" class="timepicker" />
+        <label for="description">Description</label>
+        <textarea title="description" id="description" name="description" placeholder="Type description here..."></textarea>
+        <label for="event_url">URL address</label>
+        <input id="event_url" type="url" name="event_url" />
+    </div>
+    <input class="btn btn-primary right" type="submit" value="Add" />
 </form>
+</fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
