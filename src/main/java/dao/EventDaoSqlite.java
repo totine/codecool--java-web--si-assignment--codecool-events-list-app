@@ -58,7 +58,9 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setDate(rs.getString("event_date"));
             event.setTime(rs.getString("event_time"));
             event.setDescription(rs.getString("description"));
+            event.setCategory(category);
             events.add(event);
+
         }
 
         return events;
