@@ -19,14 +19,17 @@
                 <div class="card-content">
                     <h2 class="card-title indigo-text">Choose events to remove</h2>
                     <fieldset>
-                        <form method="POST" >
-                            <div class="form-group" th:each="event : ${eventContainer}">
-                                <p>
-                                    <input type="checkbox" th:id="'event_remove' + ${event.id}" />
-                                    <label th:for="'event_remove' + ${event.id}" th:text="${event.name} + ' ' + ${event.date}">Event name</label>
+                        <form method="POST">
+                            <div class="form-group">
+                                <p th:each="event : ${eventContainer}">
+                                    <input type="checkbox" th:id="'event_remove_' + ${event.id}" name="events_to_remove"
+                                           th:value="${event.id}"/>
+                                    <label th:for="'event_remove_' + ${event.id}"
+                                           th:text="${event.name} + ' ' + ${event.date}">Event name</label>
                                 </p>
+
                             </div>
-                            <input class="btn btn-primary right" type="submit" value="Remove selected" />
+                            <input class="btn btn-primary right" type="submit" value="Remove selected"/>
                         </form>
                     </fieldset>
                 </div>

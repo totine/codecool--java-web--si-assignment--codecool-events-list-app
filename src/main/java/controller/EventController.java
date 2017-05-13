@@ -65,7 +65,8 @@ public class EventController {
     }
 
     public static String removeEvents(Request req, Response res) {
-        System.out.println(req.queryMap());
+        for (int i=0; i<req.queryMap("events_to_remove").values().length; i++)
+            eventDao.remove(Integer.parseInt(req.queryMap("events_to_remove").values()[i]));
         res.redirect("/");
         return null;
     }
