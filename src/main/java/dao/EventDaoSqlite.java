@@ -11,6 +11,8 @@ import java.util.List;
 
 
 public class EventDaoSqlite extends BaseDao implements EventDao {
+    private EventCategoryDao eventCategoryDao = new EventCategoryDaoSqlite();
+
     @Override
     public void add(Event event) {
 
@@ -50,7 +52,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setTime(rs.getString("event_time"));
             event.setDescription(rs.getString("description"));
             event.setUrl(rs.getString("url"));
-            EventCategory category = new EventCategoryDaoSqlite().find(rs.getInt("category_id"));
+            EventCategory category = eventCategoryDao.find(rs.getInt("category_id"));
             event.setCategory(category);
 
         } catch (SQLException e) {
@@ -95,7 +97,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
 
     private List<Event> getEvents(PreparedStatement statement) throws SQLException {
         List<Event> events = new ArrayList<Event>();
-        EventCategory category = new EventCategory("Category-name");
+
 
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
@@ -105,6 +107,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setTime(rs.getString("event_time"));
             event.setDescription(rs.getString("description"));
             event.setUrl(rs.getString("url"));
+            EventCategory category = eventCategoryDao.find(rs.getInt("category_id"));
             event.setCategory(category);
             events.add(event);
 
