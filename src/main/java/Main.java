@@ -16,11 +16,10 @@ public class Main {
 
 
         before((request, response) -> {
-            if (args.length>0 && args[0].equals("admin")) {
+            if (args.length > 0 && args[0].equals("admin")) {
                 request.session().attribute("userStatus", "admin");
             }
         });
-
 
 
         get("/", EventController::renderEvents, new ThymeleafTemplateEngine());
@@ -31,8 +30,6 @@ public class Main {
         post("/event/add", EventController::addNewEvent);
         get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
         post("/event/remove", EventController::removeEvents);
-
+        get("/events/:category", EventController::renderEvents, new ThymeleafTemplateEngine());
     }
-
-
 }
