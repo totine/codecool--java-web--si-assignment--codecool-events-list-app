@@ -26,7 +26,7 @@ public class EventController {
 
         Map params = new HashMap<>();
         params.put("eventContainer", events);
-
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/index");
     }
 
