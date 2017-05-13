@@ -2,6 +2,7 @@ package dao;
 
 import model.EventCategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao {
@@ -22,6 +23,9 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
 
     @Override
     public List<EventCategory> getAll() {
-        return null;
+        List<EventCategory> categories = new ArrayList<>();
+        categories.add(new EventCategory("Python"));
+        categories.add(new EventCategory("Java"));
+        return categories;
     }
 }

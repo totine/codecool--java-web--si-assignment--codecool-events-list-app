@@ -1,8 +1,11 @@
 package controller;
 
+import dao.EventCategoryDao;
+import dao.EventCategoryDaoSqlite;
 import dao.EventDao;
 import dao.EventDaoSqlite;
 import model.Event;
+import model.EventCategory;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,6 +19,7 @@ import java.util.Map;
 
 public class EventController {
     private static EventDao eventDao = new EventDaoSqlite();
+    private static EventCategoryDao eventCategoryDao = new EventCategoryDaoSqlite();
 
     public List<Event> getAllEvents() {
         return eventDao.getAll();
@@ -23,9 +27,10 @@ public class EventController {
 
     public static ModelAndView renderEvents(Request req, Response res) {
         List<Event> events = eventDao.getAll();
-
+        List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", events);
+        params.put("categoryContainer", categories);
         params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/index");
     }
