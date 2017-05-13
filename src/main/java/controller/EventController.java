@@ -27,6 +27,7 @@ public class EventController {
 
         Map params = new HashMap<>();
         params.put("eventContainer", events);
+
         return new ModelAndView(params, "event/index");
     }
 
@@ -83,5 +84,15 @@ public class EventController {
         return new ModelAndView(params, "event/form");
     }
 
-
+    public static String editEvent(Request req, Response res, int eventId) {
+        Event eventToEdit = eventDao.find(eventId);
+        eventToEdit.setName(req.queryMap("event_name").value());
+        eventToEdit.setDate(req.queryMap("event_date").value());
+        eventToEdit.setTime(req.queryMap("event_time").value());
+        eventToEdit.setDescription(req.queryMap("description").value());
+        eventToEdit.setUrl(req.queryMap("url").value());
+        eventDao.add(eventToEdit);
+        res.redirect("/");
+        return null;
+    }
 }
