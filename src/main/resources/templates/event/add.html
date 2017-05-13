@@ -17,24 +17,31 @@
             <div class="card">
 
                 <div class="card-content">
-                    <h2 class="card-title indigo-text">Add new event</h2>
-<fieldset>
-<form method="POST" >
-    <div class="form-group">
-        <label for="event_name">Item name</label>
-        <input id="event_name" autofocus type="text" name="event_name" required/>
-        <label for="event_date">Date</label>
-        <input type="date" id="event_date" name="event_date" class="datepicker" />
-        <label for="event_date">Time</label>
-        <input type="time" id="event_time" name="event_time" class="timepicker" />
-        <label for="description">Description</label>
-        <textarea title="description" id="description" name="description" placeholder="Type description here..."></textarea>
-        <label for="event_url">URL address</label>
-        <input id="event_url" type="url" name="event_url" />
-    </div>
-    <input class="btn btn-primary right" type="submit" value="Add" />
-</form>
-</fieldset>
+                    <h2 class="card-title indigo-text"
+                        th:text="${event!=null} ? 'Edit event '+ ${event.name} : 'Add new event'">Add/edit event</h2>
+                    <fieldset>
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="event_name">Item name</label>
+                                <input id="event_name" autofocus type="text" name="event_name" required
+                                       th:value="${event!=null} ? ${event.name} : null"/>
+                                <label for="event_date">Date</label>
+                                <input type="date" id="event_date" name="event_date" class="datepicker"
+                                       th:value="${event!=null} ? ${event.date} : null"/>
+                                <label for="event_time">Time</label>
+                                <input type="time" id="event_time" name="event_time" class="timepicker"
+                                       th:value="${event!=null} ? ${event.time} : null"/>
+                                <label for="description">Description</label>
+                                <textarea title="description" id="description" name="description"
+                                          th:placeholder="${event!=null} ? null : 'Type description here...'"
+                                          th:text="${event!=null} ? ${event.description} : null"></textarea>
+                                <label for="event_url">URL address</label>
+                                <input id="event_url" type="url" name="event_url"
+                                       th:value="${event!=null} ? ${event.url} : null"/>
+                            </div>
+                            <input class="btn btn-primary right" type="submit" th:value="${event!=null} ? 'Submit' : 'Add'"/>
+                        </form>
+                    </fieldset>
                 </div>
             </div>
         </div>

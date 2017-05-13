@@ -12,7 +12,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
 
     @Override
     public EventCategory find(int id) {
-        return null;
+        return new EventCategory("taka sobie kategoria");
     }
 
     @Override

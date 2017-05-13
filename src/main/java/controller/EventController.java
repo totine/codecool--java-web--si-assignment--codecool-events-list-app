@@ -31,6 +31,7 @@ public class EventController {
     }
 
     public static ModelAndView renderEventDetails(Request req, Response res, Integer eventId) {
+
         Event event = eventDao.find(eventId);
 
         Map params = new HashMap<>();
@@ -40,6 +41,7 @@ public class EventController {
 
     public static ModelAndView renderEventAdd(Request req, Response res) {
         Map params = new HashMap<>();
+        params.put("event", null);
         return new ModelAndView(params, "event/add");
     }
 
@@ -69,5 +71,15 @@ public class EventController {
             eventDao.remove(Integer.parseInt(req.queryMap("events_to_remove").values()[i]));
         res.redirect("/");
         return null;
+    }
+
+    public static ModelAndView renderEventEdit(Request req, Response res, int eventId) {
+        System.out.println(eventId);
+        Event event = eventDao.find(eventId);
+        System.out.println(event.getUrl());
+        System.out.println(event.getName());
+        Map params = new HashMap<>();
+        params.put("event", event);
+        return new ModelAndView(params, "event/add");
     }
 }

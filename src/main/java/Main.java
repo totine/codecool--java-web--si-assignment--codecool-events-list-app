@@ -22,7 +22,8 @@ public class Main {
         // Always add generic routes to the end
          get("/", EventController::renderEvents, new ThymeleafTemplateEngine());
 
-        get("/event/:id/", (req, res) -> EventController.renderEventDetails(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
+        get("/event/:id/show", (req, res) -> EventController.renderEventDetails(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
+        get("/event/:id/edit", (req, res) -> EventController.renderEventEdit(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
         post("/event/add", EventController::addNewEvent);
         get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());

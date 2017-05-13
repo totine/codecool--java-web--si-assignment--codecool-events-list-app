@@ -32,7 +32,24 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
 
     @Override
     public Event find(int id) {
-        Event event = new Event("new event");
+        Event event = new Event();
+        PreparedStatement statement = null;
+        try {
+            statement = this.getConnection().prepareStatement("SELECT id, name, event_date, event_time, description, category_id, url FROM events WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            event.setId(rs.getInt("id"));
+            event.setName(rs.getString("name"));
+            event.setDate(rs.getString("event_date"));
+            event.setTime(rs.getString("event_time"));
+            event.setDescription(rs.getString("description"));
+            event.setUrl(rs.getString("url"));
+            EventCategory category = new EventCategoryDaoSqlite().find(rs.getInt("category_id"));
+            event.setCategory(category);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return event;
     }
 
@@ -81,6 +98,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setDate(rs.getString("event_date"));
             event.setTime(rs.getString("event_time"));
             event.setDescription(rs.getString("description"));
+            event.setUrl(rs.getString("url"));
             event.setCategory(category);
             events.add(event);
 
