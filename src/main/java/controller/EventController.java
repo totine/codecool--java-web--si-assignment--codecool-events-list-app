@@ -42,7 +42,7 @@ public class EventController {
     public static ModelAndView renderEventAdd(Request req, Response res) {
         Map params = new HashMap<>();
         params.put("event", null);
-        return new ModelAndView(params, "event/add");
+        return new ModelAndView(params, "event/form");
     }
 
     public static String addNewEvent(Request req, Response res) {
@@ -80,6 +80,8 @@ public class EventController {
         System.out.println(event.getName());
         Map params = new HashMap<>();
         params.put("event", event);
-        return new ModelAndView(params, "event/add");
+        return new ModelAndView(params, "event/form");
     }
+
+
 }
