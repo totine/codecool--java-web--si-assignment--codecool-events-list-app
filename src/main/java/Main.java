@@ -25,6 +25,8 @@ public class Main {
         get("/event/:id/", (req, res) -> EventController.renderEventDetails(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
         post("/event/add", EventController::addNewEvent);
+        get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
+
 
         // Equivalent with above
         // get("/index", (Request req, Response res) -> {

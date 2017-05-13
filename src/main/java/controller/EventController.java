@@ -55,4 +55,12 @@ public class EventController {
         res.redirect("/");
         return null;
     }
+
+    public static ModelAndView renderRemoveEvents(Request req, Response res) {
+        List<Event> events = eventDao.getAll();
+
+        Map params = new HashMap<>();
+        params.put("eventContainer", events);
+        return new ModelAndView(params, "event/remove");
+    }
 }
