@@ -14,6 +14,20 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
     @Override
     public void add(Event event) {
 
+        PreparedStatement statement = null;
+        try {
+            statement = this.getConnection().prepareStatement("INSERT INTO events (name, event_date, event_time, description, url, category_id) VALUES (?, ?, ?, ?, ?, 1)");
+            statement.setString(1, event.getName());
+            statement.setString(2, String.valueOf(event.getDate()));
+            statement.setString(3, String.valueOf(event.getTime()));
+            statement.setString(4, event.getDescription());
+            statement.setString(5, event.getUrl());
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
