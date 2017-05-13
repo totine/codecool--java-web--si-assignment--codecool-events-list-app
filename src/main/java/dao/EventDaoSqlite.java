@@ -38,7 +38,15 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
 
     @Override
     public void remove(int id) {
+        PreparedStatement statement = null;
+        try {
+            statement = this.getConnection().prepareStatement("DELETE FROM events WHERE id = ?");
+            statement.setInt(1, id);
+            statement.execute();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
