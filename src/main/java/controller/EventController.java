@@ -6,7 +6,6 @@ import model.Event;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Spark;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
