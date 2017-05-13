@@ -26,7 +26,7 @@ public class EventController {
     }
 
     public static ModelAndView renderEvents(Request req, Response res) {
-        List<Event> events = eventDao.getAll();
+        List<Event> events = req.params(":category").isEmpty() || req.params(":category").equals("all") ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(req.params(":category")));
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", events);
