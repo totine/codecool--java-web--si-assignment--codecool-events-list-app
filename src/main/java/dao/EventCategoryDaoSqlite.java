@@ -17,6 +17,11 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
     }
 
     @Override
+    public EventCategory find(String categoryName){
+        return new EventCategory("taka sobie kategoria");
+    }
+
+    @Override
     public void remove(int id) {
 
     }
@@ -26,6 +31,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
         List<EventCategory> categories = new ArrayList<>();
         categories.add(new EventCategory("Python"));
         categories.add(new EventCategory("Java"));
+        categories.add(new EventCategory("Codecool Events"));
         return categories;
     }
 }
