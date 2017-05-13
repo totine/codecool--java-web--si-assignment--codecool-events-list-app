@@ -26,6 +26,7 @@ public class Main {
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
         post("/event/add", EventController::addNewEvent);
         get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
+        post("/event/remove", EventController::removeEvents);
 
 
         // Equivalent with above

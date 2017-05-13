@@ -63,4 +63,10 @@ public class EventController {
         params.put("eventContainer", events);
         return new ModelAndView(params, "event/remove");
     }
+
+    public static String removeEvents(Request req, Response res) {
+        System.out.println(req.queryMap());
+        res.redirect("/");
+        return null;
+    }
 }
