@@ -16,16 +16,28 @@
 <div class="container">
 
     <div id="events" class="row">
-    <div class="collection" >
-        <a th:each="event : ${eventContainer}" th:href="@{http://localhost:8888/event/{id}/show(id=${event.id})}" class="collection-item"  >
-            <div class="event_date" th:text="${event.date}">2017-02-03</div>
-            <div class="event_time" th:text="${event.time}">18:00</div>
-            <div class="event_name" th:text="${event.name}">Event name</div>
-            <div class="event_category" th:text="${event.category.name}">Event category</div>
-            <a th:if="${userStatus}=='admin'" th:href="@{http://localhost:8888/event/{id}/remove(id=${event.id})}" class="secondary-content"><i class="material-icons">delete</i></a>
-            <a th:if="${userStatus}=='admin'" th:href="@{http://localhost:8888/event/{id}/edit(id=${event.id})}" class="secondary-content"><i class="material-icons">edit</i></a>
-        </a>
-    </div>
+        <div class="collection">
+            <div th:each="event : ${eventContainer}">
+                <div class="secondary-content">
+
+                    <a th:if="${userStatus}=='admin'"
+                       th:href="@{http://localhost:8888/event/{id}/remove(id=${event.id})}">
+                        <i class="material-icons">delete</i></a>
+                    <a th:if="${userStatus}=='admin'" th:href="@{http://localhost:8888/event/{id}/edit(id=${event.id})}"
+                    ><i class="material-icons">edit</i></a></div>
+                <a th:href="@{http://localhost:8888/event/{id}/show(id=${event.id})}"
+                   class="collection-item">
+
+                    <div class="event-date" th:text="${event.date}">2017-02-03</div>
+                    <div class="event-time" th:text="${event.time}">18:00</div>
+                    <div class="event-name" th:text="${event.name}">Event name</div>
+                    <div class="event-category" th:text="${event.category.name}">Event category
+                    </div>
+
+
+                </a>
+            </div>
+        </div>
         <div class="fixed-action-btn" th:if="${userStatus}=='admin'">
             <a class="btn-floating btn-large red" href="/event/add">
                 <i class="large material-icons">add</i>
@@ -33,9 +45,9 @@
         </div>
 
 
-</div>
+    </div>
 
-<div th:replace="footer :: copy"></div>
+    <div th:replace="footer :: copy"></div>
 </div>
 
 </body>
