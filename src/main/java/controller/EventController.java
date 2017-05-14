@@ -66,7 +66,8 @@ public class EventController {
 
     public static String addNewEvent(Request req, Response res) {
         Event newEvent = new Event(req.queryMap("event_name").value());
-        LocalDate eventDate = LocalDate.parse(req.queryMap("event_date").value());
+        System.out.println(req.queryMap("event_date").value());
+        LocalDate eventDate = LocalDate.parse(req.queryMap("event_date").value().replace(",",""));
         newEvent.setDate(eventDate);
         LocalTime eventTime = LocalTime.parse(req.queryMap("event_time").value());
         newEvent.setTime(eventTime);

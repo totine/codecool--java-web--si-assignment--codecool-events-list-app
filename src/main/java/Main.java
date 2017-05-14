@@ -1,6 +1,9 @@
 import controller.EventCategoryController;
 import controller.EventController;
+import dao.SqliteJDBCConnector;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.sql.SQLException;
 
 import static spark.Spark.*;
 
@@ -9,7 +12,14 @@ public class Main {
     private static EventController eventController = new EventController();
 
     public static void main(String[] args) {
-
+        if(args.length > 0 && args[0].equals("--create-tables")) {
+            try {
+                SqliteJDBCConnector.createTables();
+            } catch (SQLException e) {
+                System.out.println("Cannot create tables in DB");
+                System.out.println(e);
+            }
+        }
         // Configure Spark
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
