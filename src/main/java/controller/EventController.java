@@ -42,7 +42,8 @@ public class EventController {
         return new ModelAndView(params, "event/index");
     }
 
-    public static ModelAndView renderEventDetails(Request req, Response res, Integer eventId) {
+    public static ModelAndView renderEventDetails(Request req, Response res) {
+        int eventId = Integer.parseInt(req.params(":id"));
         Event event = eventDao.find(eventId);
         Map params = new HashMap<>();
         params.put("event", event);
@@ -87,7 +88,8 @@ public class EventController {
         return null;
     }
 
-    public static ModelAndView renderEventEdit(Request req, Response res, int eventId) {
+    public static ModelAndView renderEventEdit(Request req, Response res) {
+        int eventId = Integer.parseInt(req.params(":id"));
         Event event = eventDao.find(eventId);
         Map params = new HashMap<>();
         List<EventCategory> categories = eventCategoryDao.getAll();
@@ -96,7 +98,8 @@ public class EventController {
         return new ModelAndView(params, "event/form");
     }
 
-    public static String editEvent(Request req, Response res, int eventId) {
+    public static String editEvent(Request req, Response res) {
+        int eventId = Integer.parseInt(req.params(":id"));
         Event eventToEdit = eventDao.find(eventId);
         eventToEdit.setName(req.queryMap("event_name").value());
         eventToEdit.setDate(req.queryMap("event_date").value());
