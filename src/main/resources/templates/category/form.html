@@ -21,6 +21,7 @@
                         th:text="${category!=null} ? 'Edit category '+ ${category.name} : 'Add new category'">Add/edit
                         category</h2>
                     <fieldset>
+                        <div th:if="${categorToFlash} != null" th:text="'Name '${categoryToFlash} + ' is already used. Choose another one.'">Communicate</div>
                         <form method="POST">
                             <div class="form-group">
                                 <label for="category_name">Category name</label>
