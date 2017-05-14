@@ -90,8 +90,18 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
 
 
     @Override
-    public List<Event> getBy(EventCategory eventCategoryCategory) {
-        return null;
+    public List<Event> getBy(EventCategory eventCategory) {
+        List<Event> events = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = this.getConnection().prepareStatement("SELECT * FROM events WHERE category_id = ?");
+            statement.setInt(1, eventCategory.getId());
+            events = this.getEvents(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return events;
     }
 
 
