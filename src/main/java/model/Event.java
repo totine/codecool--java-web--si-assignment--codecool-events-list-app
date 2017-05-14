@@ -57,7 +57,7 @@ public class Event {
     }
 
     public void setTime(String time) {
-        this.time = LocalTime.parse(time);
+        this.time = !time.isEmpty() ? LocalTime.parse(time) : LocalTime.parse("00:00");
     }
 
     public String getDescription() {

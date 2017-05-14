@@ -59,22 +59,28 @@ public class EventController {
         Map params = new HashMap<>();
         List<EventCategory> categories = eventCategoryDao.getAll();
         params.put("event", null);
+        if (req.attribute("new_event")!=null)
+            params.put("event", req.attribute("new_event"));
         params.put("categoryContainer", categories);
         params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/form");
     }
 
-    public static String addNewEvent(Request req, Response res) {
+    public static ModelAndView addNewEvent(Request req, Response res) {
         Event newEvent = new Event(req.queryMap("event_name").value());
         System.out.println(req.queryMap("event_date").value());
-        LocalDate eventDate = LocalDate.parse(req.queryMap("event_date").value().replace(",",""));
+        LocalDate eventDate = !req.queryMap("event_date").value().isEmpty() ? LocalDate.parse(req.queryMap("event_date").value()) : null;
         newEvent.setDate(eventDate);
-        LocalTime eventTime = LocalTime.parse(req.queryMap("event_time").value());
+        LocalTime eventTime = !req.queryMap("event_time").value().isEmpty() ? LocalTime.parse(req.queryMap("event_time").value()) : null;
         newEvent.setTime(eventTime);
         newEvent.setDescription(req.queryMap("description").value());
         newEvent.setUrl(req.queryMap("event_url").value());
         EventCategory category = eventCategoryDao.find(Integer.parseInt(req.queryMap("category").value()));
         newEvent.setCategory(category);
+        if (newEvent.getDate() == null || eventDate.isBefore(LocalDate.now()) || newEvent.getTime()==null ) {
+            req.attribute("new_event", newEvent);
+            return renderEventAdd(req, res);
+        }
         eventDao.add(newEvent);
         res.redirect("/");
         return null;

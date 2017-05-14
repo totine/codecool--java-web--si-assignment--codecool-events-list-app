@@ -24,19 +24,20 @@
                             <div class="form-group">
                                 <div class="input-field">
 
+
                                     <input id="event_name" autofocus type="text" name="event_name" required
                                            th:value="${event!=null} ? ${event.name} : null"/>
                                     <label class="active" for="event_name">Event name</label>
                                 </div>
                                 <div >
                                     <label class="active" for="event_date">Date</label>
-                                    <input type="date" id="event_date" name="event_date"
+                                    <input required type="date" id="event_date" name="event_date"
                                            th:value="${event!=null} ? ${event.date} : null"/>
 
                                 </div>
                                 <div>
                                     <label class="active" for="event_time">Time</label>
-                                    <input type="time" id="event_time" name="event_time"
+                                    <input required type="time" id="event_time" name="event_time"
                                            th:value="${event!=null} ? ${event.time} : null"/>
 
                                 </div>

@@ -41,7 +41,7 @@ public class Main {
         get("/event/:id/remove", EventController::renderEventRemove, new ThymeleafTemplateEngine());
         post("/event/:id/remove", EventController::removeEvent);
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
-        post("/event/add", EventController::addNewEvent);
+        post("/event/add", EventController::addNewEvent, new ThymeleafTemplateEngine());
         get("/event/panel", EventController::renderAdminPanel, new ThymeleafTemplateEngine());
         post("/event/panel", EventController::removeEvents);
         get("/event/category/:id", EventController::renderEvents, new ThymeleafTemplateEngine());
