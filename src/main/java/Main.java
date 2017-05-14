@@ -1,3 +1,4 @@
+import controller.EventCategoryController;
 import controller.EventController;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -31,5 +32,6 @@ public class Main {
         get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
         post("/event/remove", EventController::removeEvents);
         get("/events/:category", EventController::renderEvents, new ThymeleafTemplateEngine());
+        get("/category/add", EventCategoryController::renderEventCategoryAdd, new ThymeleafTemplateEngine());
     }
 }
