@@ -26,7 +26,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
                 statement.setString(3, String.valueOf(event.getTime()));
                 statement.setString(4, event.getDescription());
                 statement.setString(5, event.getUrl());
-                statement.setInt(6, 1);
+                statement.setInt(6, event.getCategory().getId());
                 if (event.getId()!=null)
                     statement.setInt(7, event.getId());
                 statement.execute();
