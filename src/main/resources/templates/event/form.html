@@ -35,13 +35,18 @@
                                 <textarea title="description" id="description" name="description"
                                           th:placeholder="${event!=null} ? null : 'Type description here...'"
                                           th:text="${event!=null} ? ${event.description} : null"></textarea>
+
                                 <label for="event_url">URL address</label>
+
                                 <input id="event_url" type="url" name="event_url"
                                        th:value="${event!=null} ? ${event.url} : null"/>
 
                                     <label>Choose category
+                                        <a class="waves-light btn-flat right" href="/category/add">
+                                            <i class="material-icons left">add</i> Add new category
+                                        </a>
                                         <select class="browser-default" name="category">
-   
+
                                             <option th:each="category : ${categoryContainer}" th:value="${category.id}" th:text="${category.name}" th:attr="selected=${event!=null && category.id == event.category.id ? 'selected' : null}">Option 1</option>
 
                                         </select>
