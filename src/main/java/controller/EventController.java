@@ -88,6 +88,21 @@ public class EventController {
         return null;
     }
 
+    public static ModelAndView renderEventRemove(Request req, Response res) {
+        int eventId = Integer.parseInt(req.params(":id"));
+        Event event = eventDao.find(eventId);
+        Map params = new HashMap<>();
+        params.put("event", event);
+        return new ModelAndView(params, "event/remove");
+    }
+
+    public static String removeEvent(Request req, Response res) {
+        int eventId = Integer.parseInt(req.params(":id"));
+        eventDao.remove(eventId);
+        res.redirect("/");
+        return null;
+    }
+
     public static ModelAndView renderEventEdit(Request req, Response res) {
         int eventId = Integer.parseInt(req.params(":id"));
         Event event = eventDao.find(eventId);

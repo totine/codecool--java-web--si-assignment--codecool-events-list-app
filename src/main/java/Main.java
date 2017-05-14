@@ -28,6 +28,8 @@ public class Main {
         get("/event/:id/show", EventController::renderEventDetails, new ThymeleafTemplateEngine());
         get("/event/:id/edit", EventController::renderEventEdit, new ThymeleafTemplateEngine());
         post("/event/:id/edit", EventController::editEvent);
+        get("/event/:id/remove", EventController::renderEventRemove, new ThymeleafTemplateEngine());
+        post("/event/:id/remove", EventController::removeEvent);
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
         post("/event/add", EventController::addNewEvent);
         get("/event/panel", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
@@ -35,6 +37,7 @@ public class Main {
         get("/event/category/:id", EventController::renderEvents, new ThymeleafTemplateEngine());
         get("/category/add", EventCategoryController::renderEventCategoryAdd, new ThymeleafTemplateEngine());
         post("/category/add", EventCategoryController::addNewEventCategory);
+
 
     }
 }
