@@ -12,10 +12,7 @@ import spark.Response;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -28,7 +25,14 @@ public class EventController {
     }
 
     public static ModelAndView renderEvents(Request req, Response res) {
-        List<Event> events = req.params(":id")==null  ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
+        List<Event> events;
+        if (!req.queryMap("search").hasValue()) {
+            events = req.params(":id") == null ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
+        }else {
+            String searchPhrase = req.queryMap("search").value().toLowerCase().trim();
+            events = eventDao.getAll().stream().filter(x -> x.getName().toLowerCase().contains(searchPhrase) || x.getDescription().toLowerCase().contains(searchPhrase) || x.getCategory().getName().contains(searchPhrase)).collect(Collectors.toList());
+        }
+
         events.sort(Comparator.comparing(Event::getDate));
         List<Event> eventsActive = events.stream().filter(x -> x.getDate().isAfter(LocalDate.now())).collect(Collectors.toList());
         List<Event> eventsArchived = events.stream().filter(x -> x.getDate().isBefore(LocalDate.now())).collect(Collectors.toList());
@@ -56,6 +60,7 @@ public class EventController {
         List<EventCategory> categories = eventCategoryDao.getAll();
         params.put("event", null);
         params.put("categoryContainer", categories);
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/form");
     }
 
@@ -81,6 +86,7 @@ public class EventController {
 
         params.put("eventContainer", events);
         params.put("categoryContainer", categories);
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "panel/panel");
     }
 
@@ -96,6 +102,7 @@ public class EventController {
         Event event = eventDao.find(eventId);
         Map params = new HashMap<>();
         params.put("event", event);
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/remove");
     }
 
@@ -113,6 +120,7 @@ public class EventController {
         List<EventCategory> categories = eventCategoryDao.getAll();
         params.put("event", event);
         params.put("categoryContainer", categories);
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/form");
     }
 
@@ -130,4 +138,5 @@ public class EventController {
         res.redirect("/");
         return null;
     }
+
 }

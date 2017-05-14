@@ -42,5 +42,7 @@ public class Main {
         post("/category/:id/edit", EventCategoryController::editEventCategory);
         get("/category/:id/remove", EventCategoryController::renderEventCategoryRemove, new ThymeleafTemplateEngine());
         post("/category/:id/remove", EventCategoryController::removeEventCategory);
+        post("/event/search", EventController::renderEvents, new ThymeleafTemplateEngine());
+
     }
 }

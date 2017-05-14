@@ -18,6 +18,7 @@
             <div id="categories" class="card">
 
                 <div class="card-content">
+                    <div class="title">Event categories:</div>
                     <a class="waves-effect waves-light btn" href="/event">ALL</a>
                     <a th:each="category : ${categoryContainer}" class="waves-effect waves-light btn"
                        th:text="${category.name}"
@@ -25,6 +26,18 @@
                        }>category</a>
                 </div>
             </div>
+
+            <div class="search-wrapper card">
+                <form method="post" action="/event/search">
+
+                    <div class="input-field">
+                        <input name="search" id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+                </div>
+
             <div id="events" class="card">
 
                 <div class="card-content">
