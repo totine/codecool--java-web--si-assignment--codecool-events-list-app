@@ -29,11 +29,14 @@ public class EventController {
 
     public static ModelAndView renderEvents(Request req, Response res) {
         List<Event> events = req.params(":id")==null  ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
-        events = events.stream().filter(x -> x.getDate().isAfter(LocalDate.now())).collect(Collectors.toList());
         events.sort(Comparator.comparing(Event::getDate));
+        List<Event> eventsActive = events.stream().filter(x -> x.getDate().isAfter(LocalDate.now())).collect(Collectors.toList());
+        List<Event> eventsArchived = events.stream().filter(x -> x.getDate().isBefore(LocalDate.now())).collect(Collectors.toList());
+
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
-        params.put("eventContainer", events);
+        params.put("eventContainer", eventsActive);
+        params.put("eventContainerArchived", eventsArchived);
         params.put("categoryContainer", categories);
         params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/index");
