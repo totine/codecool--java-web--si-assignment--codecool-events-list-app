@@ -10,10 +10,38 @@
     <title>Codecool events</title>
 </head>
 <body>
-<header>
-    <div>Codecool events!</div>
-</header>
-<div th:text="${event.name}">event name</div>
+<div class="container grey lighten-2">
+    <div th:replace="navigation :: nav"></div>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card ">
+                <div class="card-content">
+                    <h2 class="card-title indigo-text">Event details</h2>
+                    <ul class="collection">
+                        <li class="collection-item">Name: <span class="badge" th:text="${event.name}">name</span></li>
+                        <li class="collection-item">Category: <span class="badge" th:text="${event.category.name}">Category</span>
+                        </li>
+                        <li class="collection-item">Event date: <span class="badge"
+                                                                      th:text="${event.date}">2017-05-05</span></li>
+                        <li class="collection-item">Event time: <span class="badge" th:text="${event.time}">18:00</span>
+                        </li>
+                        <li class="collection-item">Description: <span class="badge" th:text="${event.description}">Description</span>
+                        </li>
+                        <li class="collection-item">URL: <span class="badge"><a th:href="${event.url}"
+                                                                                th:text="${event.url}">www.event.pl</a></span>
+                        </li>
+                    </ul>
+                    <a th:if="${userStatus} == 'admin'" class="waves-effect waves-light btn right"
+                       th:href="@{http://localhost:8888/event/{id}/edit(id=${event.id})}">Edit</a>
+                    <a th:if="${userStatus} == 'admin'" class="waves-effect waves-light btn right"
+                       th:href="@{http://localhost:8888/event/{id}/remove(id=${event.id})}">Remove</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
