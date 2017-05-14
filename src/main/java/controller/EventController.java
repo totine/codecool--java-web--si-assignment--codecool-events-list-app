@@ -46,6 +46,7 @@ public class EventController {
         Event event = eventDao.find(eventId);
         Map params = new HashMap<>();
         params.put("event", event);
+        params.put("userStatus", req.session().attribute("userStatus"));
         return new ModelAndView(params, "event/show");
     }
 
