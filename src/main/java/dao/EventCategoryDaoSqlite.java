@@ -17,9 +17,9 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             String query = category.getId()==null ? "INSERT INTO event_categories (name) VALUES (?)" :
                     "UPDATE event_categories SET name = ? WHERE id = ?";
             statement = this.getConnection().prepareStatement(query);
-            statement.setInt(6, 1);
+            statement.setString(1, category.getName());
             if (category.getId()!=null)
-                statement.setInt(7, category.getId());
+                statement.setInt(2, category.getId());
             statement.execute();
 
         } catch (SQLException e) {
@@ -40,6 +40,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             ResultSet rs = statement.executeQuery();
             category = new EventCategory(rs.getString("name"));
             category.setId(rs.getInt("id"));
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
