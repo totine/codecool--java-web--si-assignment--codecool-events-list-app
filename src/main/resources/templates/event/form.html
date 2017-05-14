@@ -38,7 +38,18 @@
                                 <label for="event_url">URL address</label>
                                 <input id="event_url" type="url" name="event_url"
                                        th:value="${event!=null} ? ${event.url} : null"/>
+
+                                    <label>Choose category
+                                        <select class="browser-default" name="category">
+   
+                                            <option th:each="category : ${categoryContainer}" th:value="${category.id}" th:text="${category.name}" th:attr="selected=${event!=null && category.id == event.category.id ? 'selected' : null}">Option 1</option>
+
+                                        </select>
+                                    </label>
+
+
                             </div>
+
                             <input class="btn btn-primary right" type="submit" th:value="${event!=null} ? 'Submit' : 'Add'"/>
                         </form>
                     </fieldset>
@@ -47,5 +58,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
