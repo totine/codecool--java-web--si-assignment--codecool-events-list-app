@@ -12,9 +12,11 @@ import spark.Response;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class EventController {
@@ -27,6 +29,8 @@ public class EventController {
 
     public static ModelAndView renderEvents(Request req, Response res) {
         List<Event> events = req.params(":id")==null  ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
+        events = events.stream().filter(x -> x.getDate().isAfter(LocalDate.now())).collect(Collectors.toList());
+        events.sort(Comparator.comparing(Event::getDate));
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", events);
