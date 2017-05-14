@@ -2,12 +2,14 @@ package controller;
 
 import dao.EventCategoryDao;
 import dao.EventCategoryDaoSqlite;
+import model.Event;
 import model.EventCategory;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -28,13 +30,43 @@ public class EventCategoryController {
 
             res.redirect("/category/add");
             req.session().attribute("categoryToFlash", req.queryMap("category_name").value());
-            System.out.println(req.session().attributes());
             return null;
         }
         EventCategory newEventCategory = new EventCategory(req.queryMap("category_name").value());
         eventCategoryDao.add(newEventCategory);
 
         res.redirect("/event/add");
+        return null;
+    }
+    public static ModelAndView renderEventCategoryRemove(Request req, Response res) {
+        int categoryId = Integer.parseInt(req.params(":id"));
+        EventCategory category = eventCategoryDao.find(categoryId);
+        Map params = new HashMap<>();
+        params.put("category", category);
+        return new ModelAndView(params, "category/remove");
+    }
+
+    public static String removeEventCategory(Request req, Response res) {
+        int categoryId = Integer.parseInt(req.params(":id"));
+        eventCategoryDao.remove(categoryId);
+        res.redirect("/");
+        return null;
+    }
+
+    public static ModelAndView renderEventCategoryEdit(Request req, Response res) {
+        int categoryId = Integer.parseInt(req.params(":id"));
+        EventCategory category = eventCategoryDao.find(categoryId);
+        Map params = new HashMap<>();
+        params.put("category", category);
+        return new ModelAndView(params, "category/form");
+    }
+
+    public static String editEventCategory(Request req, Response res) {
+        int categoryId = Integer.parseInt(req.params(":id"));
+        EventCategory categoryToEdit = eventCategoryDao.find(categoryId);
+        categoryToEdit.setName(req.queryMap("category_name").value());
+        eventCategoryDao.add(categoryToEdit);
+        res.redirect("/");
         return null;
     }
 }
