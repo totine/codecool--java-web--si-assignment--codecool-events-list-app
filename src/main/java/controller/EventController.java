@@ -74,11 +74,14 @@ public class EventController {
         return null;
     }
 
-    public static ModelAndView renderRemoveEvents(Request req, Response res) {
+    public static ModelAndView renderAdminPanel(Request req, Response res) {
         List<Event> events = eventDao.getAll();
+        List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
+
         params.put("eventContainer", events);
-        return new ModelAndView(params, "event/remove");
+        params.put("categoryContainer", categories);
+        return new ModelAndView(params, "panel/panel");
     }
 
     public static String removeEvents(Request req, Response res) {
