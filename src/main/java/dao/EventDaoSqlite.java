@@ -30,7 +30,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
                 if (event.getId()!=null)
                     statement.setInt(7, event.getId());
                 statement.execute();
-
+                statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -54,7 +54,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setUrl(rs.getString("url"));
             EventCategory category = eventCategoryDao.find(rs.getInt("category_id"));
             event.setCategory(category);
-
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             statement = this.getConnection().prepareStatement("DELETE FROM events WHERE id = ?");
             statement.setInt(1, id);
             statement.execute();
-
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,6 +97,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             PreparedStatement statement = this.getConnection().prepareStatement("SELECT * FROM events WHERE category_id = ?");
             statement.setInt(1, eventCategory.getId());
             events = this.getEvents(statement);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,7 +123,7 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             events.add(event);
 
         }
-
+        statement.close();
         return events;
     }
 }
