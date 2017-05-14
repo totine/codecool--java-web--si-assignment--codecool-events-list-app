@@ -35,7 +35,7 @@ public class EventCategoryController {
         }
         EventCategory newEventCategory = new EventCategory(req.queryMap("category_name").value());
         eventCategoryDao.add(newEventCategory);
-        res.redirect("/event/add");
+        res.redirect("/");
         return null;
     }
 
