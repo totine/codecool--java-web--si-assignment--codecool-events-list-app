@@ -20,9 +20,9 @@
             <div id="categories" class="card">
 
                 <div class="card-content">
-                    <a class="waves-effect waves-light btn" href="/events/all">ALL</a>
+                    <a class="waves-effect waves-light btn" href="/event">ALL</a>
                     <a  th:each="category : ${categoryContainer}" class="waves-effect waves-light btn"
-                        th:text="${category.name}" th:href="@{http://localhost:8888/events/{category}(category=${category.name.toLowerCase().replace(' ', '-')})}">category</a>
+                        th:text="${category.name}" th:href="(${category} != null) ? @{http://localhost:8888/event/category/{id}(id=${category.id})} : '/'"}>category</a>
                 </div>
             </div>
             <div id="events" class="card">

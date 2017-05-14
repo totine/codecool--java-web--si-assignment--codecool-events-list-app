@@ -24,6 +24,7 @@ public class Main {
 
 
         get("/", EventController::renderEvents, new ThymeleafTemplateEngine());
+        get("/event", EventController::renderEvents, new ThymeleafTemplateEngine());
         get("/event/:id/show", (req, res) -> EventController.renderEventDetails(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
         get("/event/:id/edit", (req, res) -> EventController.renderEventEdit(req, res, Integer.parseInt(req.params(":id"))), new ThymeleafTemplateEngine());
         post("/event/:id/edit", (req, res) -> EventController.editEvent(req, res, Integer.parseInt(req.params(":id"))));
@@ -31,7 +32,9 @@ public class Main {
         post("/event/add", EventController::addNewEvent);
         get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
         post("/event/remove", EventController::removeEvents);
-        get("/events/:category", EventController::renderEvents, new ThymeleafTemplateEngine());
+        get("/event/category/:id", EventController::renderEvents, new ThymeleafTemplateEngine());
         get("/category/add", EventCategoryController::renderEventCategoryAdd, new ThymeleafTemplateEngine());
+        post("/category/add", EventCategoryController::addNewEventCategory);
+
     }
 }

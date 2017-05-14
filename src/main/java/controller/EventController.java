@@ -26,7 +26,7 @@ public class EventController {
     }
 
     public static ModelAndView renderEvents(Request req, Response res) {
-        List<Event> events = req.params(":category")==null || req.params(":category").equals("all") ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(req.params(":category")));
+        List<Event> events = req.params(":id")==null  ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", events);
@@ -36,9 +36,7 @@ public class EventController {
     }
 
     public static ModelAndView renderEventDetails(Request req, Response res, Integer eventId) {
-
         Event event = eventDao.find(eventId);
-
         Map params = new HashMap<>();
         params.put("event", event);
         return new ModelAndView(params, "event/show");
@@ -60,7 +58,6 @@ public class EventController {
         newEvent.setTime(eventTime);
         newEvent.setDescription(req.queryMap("description").value());
         newEvent.setUrl(req.queryMap("event_url").value());
-        System.out.println(req.queryMap("category").value());
         EventCategory category = eventCategoryDao.find(Integer.parseInt(req.queryMap("category").value()));
         newEvent.setCategory(category);
         eventDao.add(newEvent);
@@ -70,7 +67,6 @@ public class EventController {
 
     public static ModelAndView renderRemoveEvents(Request req, Response res) {
         List<Event> events = eventDao.getAll();
-
         Map params = new HashMap<>();
         params.put("eventContainer", events);
         return new ModelAndView(params, "event/remove");
