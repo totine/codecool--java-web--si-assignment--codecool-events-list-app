@@ -14,18 +14,17 @@
     <div th:replace="navigation :: nav"></div>
     <div class="row">
         <div class="col s10 offset-s1">
-
-            <div  class="card">
+            <div class="card">
                 <div class="card-content">
                     <div class="card-title indigo-text" th:text="'Do you want to remove event ' + ${event.name}">
                         Do you want to remove event
                     </div>
                     <form method="POST">
-                    <div class="card-action">
-                        <button type="submit" class="waves-effect waves-light btn right">YES</button>
-                        <a href="/" class="waves-effect waves-light btn-flat right">
-                            </i>NO</a>
-                    </div>
+                        <div class="card-action">
+                            <button type="submit" class="waves-effect waves-light btn right">YES</button>
+                            <a href="/" class="waves-effect waves-light btn-flat right">
+                                </i>NO</a>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -11,24 +11,23 @@
 </head>
 <body>
 <div class="container grey lighten-2">
-
     <div class="row">
         <div class="col s7 offset-s2">
             <div class="card">
-
                 <div class="card-content">
                     <h2 class="card-title indigo-text"
                         th:text="${category!=null} ? 'Edit category '+ ${category.name} : 'Add new category'">Add/edit
                         category</h2>
                     <fieldset>
-                        <div th:if="${categoryToFlash} != null" th:text="'Name '${categoryToFlash} + ' is already used. Choose another one.'">Communicate</div>
+                        <div th:if="${categoryToFlash} != null"
+                             th:text="'Name '${categoryToFlash} + ' is already used. Choose another one.'">Communicate
+                        </div>
                         <form method="POST">
                             <div class="form-group">
                                 <label for="category_name">Category name</label>
                                 <input id="category_name" autofocus type="text" name="category_name" required
                                        th:value="${category!=null} ? ${category.name} : null"/>
                             </div>
-
                             <input class="btn btn-primary right" type="submit"
                                    th:value="${category!=null} ? 'Submit' : 'Add'"/>
                         </form>
@@ -38,6 +37,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

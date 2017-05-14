@@ -35,13 +35,10 @@
                        th:href="@{http://localhost:8888/event/{id}/edit(id=${event.id})}">Edit</a>
                     <a th:if="${userStatus} == 'admin'" class="waves-effect waves-light btn right"
                        th:href="@{http://localhost:8888/event/{id}/remove(id=${event.id})}">Remove</a>
-
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -14,10 +14,7 @@
     <div th:replace="navigation :: nav"></div>
     <div class="row">
         <div class="col s10 offset-s1">
-
-
             <div class="card">
-
                 <div class="card-content">
                     <div class="card-tabs">
                         <ul class="tabs tabs-fixed-width">
@@ -27,48 +24,39 @@
                     </div>
                 </div>
                 <div class="card-content" id="events">
-
                     <div class="collection">
                         <div th:each="event : ${eventContainer}">
                             <div class="secondary-content">
-
                                 <a th:href="@{http://localhost:8888/event/{id}/remove(id=${event.id})}">
                                     <i class="material-icons">delete</i></a>
                                 <a th:href="@{http://localhost:8888/event/{id}/edit(id=${event.id})}"
                                 ><i class="material-icons">edit</i></a></div>
                             <a th:href="@{http://localhost:8888/event/{id}/show(id=${event.id})}"
                                class="collection-item">
-
                                 <div class="event-date" th:text="${event.date}">2017-02-03</div>
                                 <div class="event-time" th:text="${event.time}">18:00</div>
                                 <div class="event-name" th:text="${event.name}">Event name</div>
                                 <div class="event-category" th:text="${event.category.name}">Event category
                                 </div>
-
-
                             </a>
                         </div>
-
                     </div>
                     <div class="fixed-action-btn">
                         <a class="btn-floating btn-large red" href="/event/add">
                             <i class="large material-icons">add</i>
                         </a>
                     </div>
-
                 </div>
                 <div class="card-content" id="categories">
                     <div class="collection">
                         <div th:each="category : ${categoryContainer}">
                             <div class="secondary-content">
-
                                 <a th:href="@{http://localhost:8888/category/{id}/remove(id=${category.id})}">
                                     <i class="material-icons">delete</i></a>
                                 <a th:href="@{http://localhost:8888/category/{id}/edit(id=${category.id})}"
                                 ><i class="material-icons">edit</i></a></div>
                             <a th:href="@{http://localhost:8888/category/{id}/show(id=${category.id})}"
                                class="collection-item">
-
                                 <div class="event-name" th:text="${category.name}">Event name</div>
                             </a>
                         </div>
@@ -78,16 +66,11 @@
                             <i class="large material-icons">add</i>
                         </a>
                     </div>
-
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
-
 <div th:replace="footer :: copy"></div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
@@ -96,7 +79,5 @@
         $('ul.tabs').tabjs / materialize.min.jss();
     });
 </script>
-
-
 </body>
 </html>

@@ -18,37 +18,28 @@
                 <div class="card-content">
                     <h2 class="card-title indigo-text">Category details</h2>
                     <ul class="collection">
-                        <li class="collection-item">Name: <span class="badge" th:text="${category.name}">name</span></li>
-
+                        <li class="collection-item">Name: <span class="badge" th:text="${category.name}">name</span>
+                        </li>
                     </ul>
                     <div class="collection with-header">
                         <div class="collection-header"><h4>Event in this category</h4></div>
                         <div th:each="event : ${eventContainer}">
-
                             <a th:href="@{http://localhost:8888/event/{id}/show(id=${event.id})}"
                                class="collection-item">
-
                                 <div class="event-date" th:text="${event.date}">2017-02-03</div>
                                 <div class="event-time" th:text="${event.time}">18:00</div>
                                 <div class="event-name" th:text="${event.name}">Event name</div>
-
-
-
                             </a>
                         </div>
-
                     </div>
                     <a class="waves-effect waves-light btn right"
                        th:href="@{http://localhost:8888/category/{id}/edit(id=${category.id})}">Edit</a>
                     <a class="waves-effect waves-light btn right"
                        th:href="@{http://localhost:8888/category/{id}/remove(id=${category.id})}">Remove</a>
-
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

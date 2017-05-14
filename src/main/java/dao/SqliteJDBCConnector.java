@@ -9,13 +9,11 @@ import java.sql.Statement;
 public class SqliteJDBCConnector {
     public static Connection connection() {
         Connection connection = null;
-
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/data/database.db");
         } catch (SQLException e) {
             System.out.println("Connection to DB failed");
         }
-
         return connection;
     }
 
@@ -32,7 +30,6 @@ public class SqliteJDBCConnector {
                 "        url VARCHAR,\n" +
                 "        category_id INTEGER\n" +
                 "        );");
-
 
         statement.execute("CREATE TABLE IF NOT EXISTS event_categories\n" +
                 "       (\n" +
