@@ -73,6 +73,9 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             statement = this.getConnection().prepareStatement("DELETE FROM event_categories WHERE id = ?");
             statement.setInt(1, id);
             statement.execute();
+            statement = this.getConnection().prepareStatement("UPDATE events SET category_id = null WHERE category_id = ?");
+            statement.setInt(1, id);
+            statement.execute();
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();

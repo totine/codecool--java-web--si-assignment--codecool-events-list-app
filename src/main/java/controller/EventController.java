@@ -22,6 +22,7 @@ public class EventController {
 
     public static ModelAndView renderEvents(Request req, Response res) {
         List<Event> events;
+        //checking is rendering list after search, if no - checking is get by category
         if (!req.queryMap("search").hasValue()) {
             events = req.params(":id") == null ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(Integer.parseInt(req.params(":id"))));
         } else {
@@ -29,19 +30,21 @@ public class EventController {
             events = eventDao.getAll().stream().filter(x -> x.getName().toLowerCase().contains(searchPhrase) || x.getDescription().toLowerCase().contains(searchPhrase) || x.getCategory().getName().contains(searchPhrase)).collect(Collectors.toList());
         }
         events.sort(Comparator.comparing(Event::getDate));
+        //divide event list on upcoming events and archived
         List<Event> eventsActive = events.stream().filter(x -> x.getDate().isAfter(LocalDate.now())).collect(Collectors.toList());
         List<Event> eventsArchived = events.stream().filter(x -> x.getDate().isBefore(LocalDate.now())).collect(Collectors.toList());
+        //get category list to show category filter
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", eventsActive);
         params.put("eventContainerArchived", eventsArchived);
         params.put("categoryContainer", categories);
-        params.put("userStatus", req.session().attribute("userStatus"));
+        params.put("userStatus", req.session().attribute("userStatus")); //need for decide about view (admin or starndard user)
         return new ModelAndView(params, "event/index");
     }
 
     public static ModelAndView renderEventDetails(Request req, Response res) {
-        int eventId = Integer.parseInt(req.params(":id"));
+        int eventId = Integer.parseInt(req.params(":id")); //get event id from path
         Event event = eventDao.find(eventId);
         Map params = new HashMap<>();
         params.put("event", event);
@@ -62,7 +65,6 @@ public class EventController {
 
     public static ModelAndView addNewEvent(Request req, Response res) {
         Event newEvent = new Event(req.queryMap("event_name").value());
-        System.out.println(req.queryMap("event_date").value());
         LocalDate eventDate = !req.queryMap("event_date").value().isEmpty() ? LocalDate.parse(req.queryMap("event_date").value()) : null;
         newEvent.setDate(eventDate);
         LocalTime eventTime = !req.queryMap("event_time").value().isEmpty() ? LocalTime.parse(req.queryMap("event_time").value()) : null;
@@ -71,6 +73,7 @@ public class EventController {
         newEvent.setUrl(req.queryMap("event_url").value());
         EventCategory category = eventCategoryDao.find(Integer.parseInt(req.queryMap("category").value()));
         newEvent.setCategory(category);
+        //if incorrect time or date (null or before actual date) - retry to add
         if (newEvent.getDate() == null || (newEvent.getDate() != null && eventDate.isBefore(LocalDate.now()))
                 || newEvent.getTime() == null) {
             req.attribute("new_event", newEvent);

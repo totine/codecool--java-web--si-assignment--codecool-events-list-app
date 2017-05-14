@@ -110,7 +110,8 @@ public class EventDaoSqlite extends BaseDao implements EventDao {
             event.setTime(rs.getString("event_time"));
             event.setDescription(rs.getString("description"));
             event.setUrl(rs.getString("url"));
-            EventCategory category = eventCategoryDao.find(rs.getInt("category_id"));
+            Integer categoryId = rs.getInt("category_id");
+            EventCategory category = categoryId != 0 ? eventCategoryDao.find(categoryId) : new EventCategory("No category");
             event.setCategory(category);
             events.add(event);
         }
