@@ -17,8 +17,8 @@ public class Main {
 
 
         before((request, response) -> {
-            if (args.length > 0 && args[0].equals("admin")) {
-                request.session().attribute("userStatus", "admin");
+            if (args.length > 0) {
+                request.session().attribute("userStatus", args[0]);
             }
         });
 
@@ -30,8 +30,8 @@ public class Main {
         post("/event/:id/edit", (req, res) -> EventController.editEvent(req, res, Integer.parseInt(req.params(":id"))));
         get("/event/add", EventController::renderEventAdd, new ThymeleafTemplateEngine());
         post("/event/add", EventController::addNewEvent);
-        get("/event/remove", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
-        post("/event/remove", EventController::removeEvents);
+        get("/event/panel", EventController::renderRemoveEvents, new ThymeleafTemplateEngine());
+        post("/event/panel", EventController::removeEvents);
         get("/event/category/:id", EventController::renderEvents, new ThymeleafTemplateEngine());
         get("/category/add", EventCategoryController::renderEventCategoryAdd, new ThymeleafTemplateEngine());
         post("/category/add", EventCategoryController::addNewEventCategory);
