@@ -26,7 +26,7 @@ public class EventController {
     }
 
     public static ModelAndView renderEvents(Request req, Response res) {
-        List<Event> events = req.params(":category").isEmpty() || req.params(":category").equals("all") ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(req.params(":category")));
+        List<Event> events = req.params(":category")==null || req.params(":category").equals("all") ? eventDao.getAll() : eventDao.getBy(eventCategoryDao.find(req.params(":category")));
         List<EventCategory> categories = eventCategoryDao.getAll();
         Map params = new HashMap<>();
         params.put("eventContainer", events);
@@ -46,7 +46,9 @@ public class EventController {
 
     public static ModelAndView renderEventAdd(Request req, Response res) {
         Map params = new HashMap<>();
+        List<EventCategory> categories = eventCategoryDao.getAll();
         params.put("event", null);
+        params.put("categoryContainer", categories);
         return new ModelAndView(params, "event/form");
     }
 
@@ -58,6 +60,9 @@ public class EventController {
         newEvent.setTime(eventTime);
         newEvent.setDescription(req.queryMap("description").value());
         newEvent.setUrl(req.queryMap("event_url").value());
+        System.out.println(req.queryMap("category").value());
+        EventCategory category = eventCategoryDao.find(Integer.parseInt(req.queryMap("category").value()));
+        newEvent.setCategory(category);
         eventDao.add(newEvent);
         res.redirect("/");
         return null;
@@ -79,12 +84,11 @@ public class EventController {
     }
 
     public static ModelAndView renderEventEdit(Request req, Response res, int eventId) {
-        System.out.println(eventId);
         Event event = eventDao.find(eventId);
-        System.out.println(event.getUrl());
-        System.out.println(event.getName());
         Map params = new HashMap<>();
+        List<EventCategory> categories = eventCategoryDao.getAll();
         params.put("event", event);
+        params.put("categoryContainer", categories);
         return new ModelAndView(params, "event/form");
     }
 
@@ -95,6 +99,8 @@ public class EventController {
         eventToEdit.setTime(req.queryMap("event_time").value());
         eventToEdit.setDescription(req.queryMap("description").value());
         eventToEdit.setUrl(req.queryMap("url").value());
+        EventCategory category = eventCategoryDao.find(Integer.parseInt(req.queryMap("category").value()));
+        eventToEdit.setCategory(category);
         eventDao.add(eventToEdit);
         res.redirect("/");
         return null;
