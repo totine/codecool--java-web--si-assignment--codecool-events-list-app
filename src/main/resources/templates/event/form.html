@@ -22,40 +22,60 @@
                     <fieldset>
                         <form method="POST">
                             <div class="form-group">
-                                <label for="event_name">Item name</label>
-                                <input id="event_name" autofocus type="text" name="event_name" required
-                                       th:value="${event!=null} ? ${event.name} : null"/>
-                                <label for="event_date">Date</label>
-                                <input type="date" id="event_date" name="event_date" class="datepicker"
-                                       th:value="${event!=null} ? ${event.date} : null"/>
-                                <label for="event_time">Time</label>
-                                <input type="time" id="event_time" name="event_time" class="timepicker"
-                                       th:value="${event!=null} ? ${event.time} : null"/>
-                                <label for="description">Description</label>
-                                <textarea title="description" id="description" name="description"
+                                <div class="input-field">
+
+                                    <input id="event_name" autofocus type="text" name="event_name" required
+                                           th:value="${event!=null} ? ${event.name} : null"/>
+                                    <label class="active" for="event_name">Event name</label>
+                                </div>
+                                <div >
+                                    <label class="active" for="event_date">Date</label>
+                                    <input type="date" id="event_date" name="event_date" class="datepicker"
+                                           th:value="${event!=null} ? ${event.date} : null"/>
+
+                                </div>
+                                <div>
+                                    <label class="active" for="event_time">Time</label>
+                                    <input type="time" id="event_time" name="event_time"
+                                           th:value="${event!=null} ? ${event.time} : null"/>
+
+                                </div>
+                                <div class="input-field">
+                                    <label for="description">Description</label>
+                                <textarea class="materialize-textarea" title="description" id="description" name="description"
                                           th:placeholder="${event!=null} ? null : 'Type description here...'"
                                           th:text="${event!=null} ? ${event.description} : null"></textarea>
 
-                                <label for="event_url">URL address</label>
+                                </div>
+                                <div class="input-field">
 
-                                <input id="event_url" type="url" name="event_url"
-                                       th:value="${event!=null} ? ${event.url} : null"/>
+                                    <input id="event_url" type="url" name="event_url" class="validate"
+                                           th:value="${event!=null} ? ${event.url} : null"/>
+                                    <label class="active" for="event_url" data-error="incorrect adress" data-success="correct">URL
+                                        address</label>
 
+                                </div>
+                                <div >
                                     <label>Choose category
                                         <a class="waves-light btn-flat right" href="/category/add">
                                             <i class="material-icons left">add</i> Add new category
                                         </a>
-                                        <select class="browser-default" name="category">
+                                        <select name="category">
 
-                                            <option th:each="category : ${categoryContainer}" th:value="${category.id}" th:text="${category.name}" th:attr="selected=${event!=null && category.id == event.category.id ? 'selected' : null}">Option 1</option>
+                                            <option th:each="category : ${categoryContainer}" th:value="${category.id}"
+                                                    th:text="${category.name}"
+                                                    th:attr="selected=${event!=null && category.id == event.category.id ? 'selected' : null}">
+                                                Option 1
+                                            </option>
 
                                         </select>
                                     </label>
-
+                                </div>
 
                             </div>
 
-                            <input class="btn btn-primary right" type="submit" th:value="${event!=null} ? 'Submit' : 'Add'"/>
+                            <input class="btn btn-primary right" type="submit"
+                                   th:value="${event!=null} ? 'Submit' : 'Add'"/>
                         </form>
                     </fieldset>
                 </div>
@@ -63,6 +83,18 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+<script>
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
 
 </body>
 </html>
