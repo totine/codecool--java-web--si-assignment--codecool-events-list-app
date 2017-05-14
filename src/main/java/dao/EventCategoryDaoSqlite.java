@@ -21,6 +21,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             if (category.getId()!=null)
                 statement.setInt(2, category.getId());
             statement.execute();
+            statement.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,7 +58,9 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             statement.setString(1, categoryName);
             ResultSet rs = statement.executeQuery();
             category = new EventCategory(rs.getString("name"));
+            System.out.println(category);
             category.setId(rs.getInt("id"));
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,6 +75,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             statement = this.getConnection().prepareStatement("DELETE FROM event_categories WHERE id = ?");
             statement.setInt(1, id);
             statement.execute();
+            statement.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,7 +104,7 @@ public class EventCategoryDaoSqlite extends BaseDao implements EventCategoryDao 
             categories.add(category);
 
         }
-
+        statement.close();
         return categories;
     }
 }
